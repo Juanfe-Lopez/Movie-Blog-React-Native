@@ -1,65 +1,46 @@
-import React from "react";
-import { View } from "react-native";
-import Menu from "./Menu";
-import Blog from "./MovieBlog";
-import MovieForm from "./MovieForm";
-import MovieList from "./MovieList";
-import MovieDetails from "./MovieDetails";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Menu from './Menu';
+import BlogScreen from './MovieBlog';
+import MovieForm from './MovieForm';
+import MovieList from './MovieList';
+import MovieDetail from './MovieDetails';
 
+const Stack = createNativeStackNavigator();
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedOption: null,
-      selectedMovie: null,
-    };
-  }
-
-
-  handleOptionSelect = (option) => {
-    if (option === "MovieList") {
-      this.setState({
-        selectedOption: option,
-        selectedMovie: null,
-      });
-    } else {
-      this.setState({ selectedOption: option });
-    }
-  };
-  
-  handleMovieSelect = (movie) => {
-    this.setState({
-      selectedOption: "MovieDetails",
-      selectedMovie: movie,
-    });
-  };
-
-
-  renderSelectedComponent = () => {
-    const { selectedOption } = this.state;
-
-    if (selectedOption === "Blog") {
-      return <Blog />;
-    } else if (selectedOption === "MovieForm") {
-      return <MovieForm />;
-    } else if (selectedOption === "MovieList") {
-      return <MovieList onMovieSelect={this.handleMovieSelect} />;
-  } else if (selectedOption === 'MovieDetails' && selectedMovie) {
-    return <MovieDetails movie={selectedMovie} />;
-  }
-
-    return null;
-  };
-  
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <Menu onSelectOption={this.handleOptionSelect} />
-        {this.renderSelectedComponent()}
-      </View>
-    );
-  }
-}
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Menu"
+          component={Menu}
+          options={{ title: 'Menu' }}
+        />
+        <Stack.Screen
+          name="Blog"
+          component={BlogScreen}
+          options={{ title: 'Blog' }}
+        />
+        <Stack.Screen
+          name="MovieForm"
+          component={MovieForm}
+          options={{ title: 'Add Movie' }}
+        />
+        <Stack.Screen
+          name="MovieList"
+          component={MovieList}
+          options={{ title: 'Movie List' }}
+        />
+        <Stack.Screen
+          name="MovieDetail"
+          component={MovieDetail}
+          options={{ title: 'Movie Detail' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;
