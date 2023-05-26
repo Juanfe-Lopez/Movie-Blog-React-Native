@@ -1,20 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { View } from "react-native";
+import Menu from "./Menu";
+import Blog from "./MovieBlog";
+import MovieForm from "./MovieForm";
+import MovieList from "./MovieList";
+import MovieDetails from "./MovieDetails";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOption: null,
+      selectedMovie: null,
+    };
+  }
+
+
+  handleOptionSelect = (option) => {
+    if (option === "MovieList") {
+      this.setState({
+        selectedOption: option,
+        selectedMovie: null,
+      });
+    } else {
+      this.setState({ selectedOption: option });
+    }
+  };
+  
+  handleMovieSelect = (movie) => {
+    this.setState({
+      selectedOption: "MovieDetails",
+      selectedMovie: movie,
+    });
+  };
+
+
+  renderSelectedComponent = () => {
+    const { selectedOption } = this.state;
+
+    if (selectedOption === "Blog") {
+      return <Blog />;
+    } else if (selectedOption === "MovieForm") {
+      return <MovieForm />;
+    } else if (selectedOption === "MovieList") {
+      return <MovieList onMovieSelect={this.handleMovieSelect} />;
+  } else if (selectedOption === 'MovieDetails' && selectedMovie) {
+    return <MovieDetails movie={selectedMovie} />;
+  }
+
+    return null;
+  };
+  
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <Menu onSelectOption={this.handleOptionSelect} />
+        {this.renderSelectedComponent()}
+      </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
