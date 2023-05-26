@@ -4,12 +4,13 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://support.google.com/firebase/answer/7015592
 const firebaseConfig = {
-    apiKey: "AIzaSyAWqV6IzXiRwcCVkWM5ExbdeYyG1U1JUGM",
-    authDomain: "my-movies-4fcb8.firebaseapp.com",
-    projectId: "my-movies-4fcb8",
-    storageBucket: "my-movies-4fcb8.appspot.com",
-    messagingSenderId: "199509361204",
-    appId: "1:199509361204:web:7dd8b8de1b9313ae7f4061"
+    measurementId: process.env.REACT_APP_FIREBASE_MEASURMENT_ID,
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
   };
   
 
